@@ -90,8 +90,8 @@ public class Main : MonoBehaviour {
     IEnumerator CheckWinner() {
         yield return new WaitForSeconds(1);
 
-        bool plane1CanShoot = plane2BoxCollider.bounds.Intersects(Plane1PolyCollider.bounds);
-        bool plane2CanShoot = plane1BoxCollider.bounds.Intersects(Plane2PolyCollider.bounds);
+        bool plane1CanShoot = plane2BoxCollider.IsTouching(Plane1PolyCollider);
+        bool plane2CanShoot = plane1BoxCollider.IsTouching(Plane2PolyCollider);
 
         if (plane1CanShoot && !plane2CanShoot) {
             gameStateText.text = "Player wins";
