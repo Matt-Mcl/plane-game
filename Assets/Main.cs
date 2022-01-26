@@ -96,10 +96,10 @@ public class Main : MonoBehaviour {
 
         if (plane1CanShoot && !plane2CanShoot) {
             EndGame("Player wins");
-            return;
+            yield break;
         } else if (!plane1CanShoot && plane2CanShoot) {
             EndGame("AI wins");
-            return;
+            yield break;
         }
 
         CheckMoves();
