@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Main : MonoBehaviour {
 
@@ -10,13 +11,12 @@ public class Main : MonoBehaviour {
     AIMovement plane2Script;
     Controls controlsScript;
 
-    GameObject TheGameController;
     Collider2D plane1BoxCollider;
     Collider2D Plane1PolyCollider;
     Collider2D plane2BoxCollider;
     Collider2D Plane2PolyCollider;
     Collider2D battlefieldCollider;
-    Text gameStateText;
+    GameObject endScreen;
 
     // Initialise a backwards move as first move to prevent immediate back moves
     int plane1LastMove = 6;
@@ -34,6 +34,7 @@ public class Main : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
+        GameObject TheGameController;
         TheGameController = GameObject.Find("Plane1");
         plane1Script = TheGameController.GetComponent<Movement>();
         plane1BoxCollider = TheGameController.GetComponent<BoxCollider2D>();
@@ -44,8 +45,8 @@ public class Main : MonoBehaviour {
         Plane2PolyCollider = TheGameController.GetComponent<PolygonCollider2D>();
         TheGameController = GameObject.Find("Controls");
         controlsScript = TheGameController.GetComponent<Controls>();
-        TheGameController = GameObject.Find("GameStateText");
-        gameStateText = TheGameController.GetComponent<Text>();
+        endScreen = GameObject.Find("EndScreen");
+
         battlefieldCollider = GetComponent<Collider2D>();
 
         CheckMoves();
@@ -94,20 +95,29 @@ public class Main : MonoBehaviour {
         bool plane2CanShoot = plane1BoxCollider.IsTouching(Plane2PolyCollider);
 
         if (plane1CanShoot && !plane2CanShoot) {
-            gameStateText.text = "Player wins";
-            print("Player wins");
+            EndGame("Player wins");
+            return;
         } else if (!plane1CanShoot && plane2CanShoot) {
-            gameStateText.text = "AI wins";
-            print("AI wins");
-        } else if (plane1CanShoot && plane2CanShoot) {
-            gameStateText.text = "Both can shoot";
-            print("Both can shoot");
-        } else {
-            gameStateText.text = "Neither can shoot";
-            print("Neither can shoot");
+            EndGame("AI wins");
+            return;
         }
 
-
         CheckMoves();
+    }
+
+    void EndGame(string winner) {
+        Text endText = endScreen.transform.GetChild(0).gameObject.GetComponent<Text>();
+
+        endText.text = winner;
+
+        foreach (Transform child in endScreen.transform) {
+            child.gameObject.SetActive(true);
+        }
+
+        controlsScript.gameObject.SetActive(false);
+    }
+
+    public void RestartGame() {
+        SceneManager.LoadScene("MainScene");
     }
 }

@@ -57,10 +57,4 @@ public class Controls : MonoBehaviour {
             dragging = false;
         }
     }
-
-    // public void ToggleButtons(bool toggle) {
-    //     for (int i = 0; i < 8; i++) {
-    //         transform.GetChild(i).GetComponent<Button>().interactable = toggle;
-    //     }
-    // }
 }
