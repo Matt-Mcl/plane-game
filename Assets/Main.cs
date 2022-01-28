@@ -52,6 +52,7 @@ public class Main : MonoBehaviour {
         battlefieldCollider = GetComponent<Collider2D>();
 
         CheckMoves();
+        StartCoroutine(CheckWinner());
     }
 
     // Update is called once per frame
@@ -62,12 +63,9 @@ public class Main : MonoBehaviour {
     public void PlayerMove(int moveIndex) {
         ToggleButtons(false);
         Plane1AIScript.AiMove();
-        plane2Script.AiMove();
-        // plane1Script.target = plane1Script.planeTransform.TransformPoint(moves[moveIndex].Item1);
-        // plane1Script.rotation = plane1Script.rotation * Quaternion.Euler(0, 0, moves[moveIndex].Item2);
-        // plane1LastMove = moveIndex;
+        plane2Script.AiMove();    
 
-        StartCoroutine(CheckWinner());
+        StartCoroutine(CheckWinner());    
     }
 
     void CheckMoves() {

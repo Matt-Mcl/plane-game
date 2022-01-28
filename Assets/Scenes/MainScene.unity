@@ -1177,6 +1177,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 228397bbd229ee04595e338aeb370976, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  planeMovement1Script: {fileID: 1795735841}
+  plane1AIScript: {fileID: 0}
   planeTransform: {fileID: 0}
 --- !u!60 &908263449
 PolygonCollider2D:
@@ -1734,7 +1736,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 1416, y: 232}
+  m_AnchoredPosition: {x: 2329, y: 263}
   m_SizeDelta: {x: 2.5600586, y: 2.5599976}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!212 &1363585067
@@ -2461,6 +2463,7 @@ GameObject:
   - component: {fileID: 1795735839}
   - component: {fileID: 1795735840}
   - component: {fileID: 1795735841}
+  - component: {fileID: 1795735846}
   - component: {fileID: 1795735844}
   - component: {fileID: 1795735842}
   - component: {fileID: 1795735843}
@@ -2549,7 +2552,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1795735838}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 75a3dd9a0d00cb647b2794511e01215f, type: 3}
   m_Name: 
@@ -2646,6 +2649,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 0
+--- !u!114 &1795735846
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1795735838}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 228397bbd229ee04595e338aeb370976, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  planeMovement1Script: {fileID: 0}
+  plane1AIScript: {fileID: 908263448}
+  planeTransform: {fileID: 0}
 --- !u!1 &1817474214
 GameObject:
   m_ObjectHideFlags: 0
