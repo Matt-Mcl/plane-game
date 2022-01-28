@@ -5,7 +5,9 @@ using UnityEngine;
 
 public class AIMovement : MonoBehaviour
 {
-    Movement plane1Script;
+    public Movement planeMovement1Script;
+    public AIMovement plane1AIScript;
+    Transform plane1Transform;
     Main mainScript;
     Vector3 target;
     Quaternion rotation;
@@ -40,11 +42,17 @@ public class AIMovement : MonoBehaviour
     
     // Start is called before the first frame update
     void Start() {
-        TheGameController = GameObject.Find("Plane1");
-        plane1Script = TheGameController.GetComponent<Movement>();
+        // TheGameController = GameObject.Find("Plane1");
+        // plane1Script = TheGameController.GetComponent<Movement>();
         TheGameController = GameObject.Find("Battlefield");
         mainScript = TheGameController.GetComponent<Main>();
         battlefieldCollider = mainScript.GetComponent<Collider2D>();
+
+        if (planeMovement1Script) {
+            plane1Transform = planeMovement1Script.transform;
+        } else {
+            plane1Transform = plane1AIScript.transform;
+        }
     }
 
     // Update is called once per frame
@@ -70,7 +78,7 @@ public class AIMovement : MonoBehaviour
     }
 
     public Tuple<float, float> CreateData(int i, int j) {
-        Vector3 newPlayerPosition = plane1Script.planeTransform.TransformPoint(moves[i].Item1.x, moves[i].Item1.y, moves[i].Item1.z);
+        Vector3 newPlayerPosition = plane1Transform.TransformPoint(moves[i].Item1.x, moves[i].Item1.y, moves[i].Item1.z);
         Vector3 newAIPosition = transform.TransformPoint(moves[j].Item1.x, moves[j].Item1.y, moves[j].Item1.z);
         int playerRot = moves[i].Item2;
         int aiRot = moves[j].Item2;
@@ -81,7 +89,7 @@ public class AIMovement : MonoBehaviour
         Vector3 heading1 = newPlayerPosition - newAIPosition;
         float dirToPlayer = AngleDir(heading1, aiNewVector);
         //dirToAI
-        float pNewAngle = Mathf.Deg2Rad * (plane1Script.planeTransform.eulerAngles.z + playerRot + 90);
+        float pNewAngle = Mathf.Deg2Rad * (plane1Transform.eulerAngles.z + playerRot + 90);
         Vector3 pNewVector = new Vector3(Mathf.Cos(pNewAngle), Mathf.Sin(pNewAngle), 0);
         Vector3 heading2 = newAIPosition - newPlayerPosition;
         float dirToAi = AngleDir(heading2, pNewVector);

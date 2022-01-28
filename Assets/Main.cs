@@ -8,6 +8,7 @@ using UnityEngine.SceneManagement;
 public class Main : MonoBehaviour {
 
     Movement plane1Script;
+    AIMovement Plane1AIScript;
     AIMovement plane2Script;
     Controls controlsScript;
 
@@ -37,6 +38,7 @@ public class Main : MonoBehaviour {
         GameObject TheGameController;
         TheGameController = GameObject.Find("Plane1");
         plane1Script = TheGameController.GetComponent<Movement>();
+        Plane1AIScript = TheGameController.GetComponent<AIMovement>();
         plane1BoxCollider = TheGameController.GetComponent<BoxCollider2D>();
         Plane1PolyCollider = TheGameController.GetComponent<PolygonCollider2D>();
         TheGameController = GameObject.Find("Plane2");
@@ -59,10 +61,11 @@ public class Main : MonoBehaviour {
 
     public void PlayerMove(int moveIndex) {
         ToggleButtons(false);
+        Plane1AIScript.AiMove();
         plane2Script.AiMove();
-        plane1Script.target = plane1Script.planeTransform.TransformPoint(moves[moveIndex].Item1);
-        plane1Script.rotation = plane1Script.rotation * Quaternion.Euler(0, 0, moves[moveIndex].Item2);
-        plane1LastMove = moveIndex;
+        // plane1Script.target = plane1Script.planeTransform.TransformPoint(moves[moveIndex].Item1);
+        // plane1Script.rotation = plane1Script.rotation * Quaternion.Euler(0, 0, moves[moveIndex].Item2);
+        // plane1LastMove = moveIndex;
 
         StartCoroutine(CheckWinner());
     }
@@ -103,6 +106,7 @@ public class Main : MonoBehaviour {
         }
 
         CheckMoves();
+        PlayerMove(0);
     }
 
     void EndGame(string winner) {
